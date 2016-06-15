@@ -6,5 +6,21 @@
 //
 public class Solution {
     public int missingNumber(int[] nums) {
+      int i = 0;
+      while(i < nums.length){
+        if (i == nums.length) i++;
+        else if (i == nums[i]) i++;
+        else if (nums[i] < nums.length && nums[i] == nums[nums[i]]) i++;
+        else swap(nums, i, nums[i]);
+      }
+      for (int i = 0; i < nums.length; i++){
+        if (nums[i] != i) return i;
+      }
+      return nums.length;
+   }
+   private void swap(int []num, int i, int j){
+     int t = num[i];
+     num[i] = num[j];
+     num[j] = t;
    }
 }

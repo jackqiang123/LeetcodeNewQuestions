@@ -16,5 +16,27 @@
 
 public class Solution {
     public int nthUglyNumber(int n) {
+      Queue<Integer> q2 = new LinkedList();
+      Queue<Integer> q3 = new LinkedList();
+      Queue<Integer> q5 = new LinkedList();
+      int num = 1;
+      while(n > 1){
+        q2.add(num*2);
+        q3.add(num*3);
+        q5.add(num*5);
+        num = Math.min(q2.peek(), Math.min(q3.peek(), q5.peek()));
+        if (q2.peek() == num){
+          q2.remove();
+        }
+        else if (q3.peek() == num){
+          q3.remove();
+        }
+        else {
+          q5.remove();
+        }
+        q2.add(2*num);q3.add(3*num);q5.add(5*num);
+        n--;
+      }
+      return num;
    }
 }

@@ -22,6 +22,24 @@
 // such as eval or serialize methods. You should implement your own encode/decode algorithm.
 
 public class Codec {
-
-   }
+    public String encode(List<String> strs) {
+      StringBuilder res = new StringBuilder();
+      for (String s : strs){
+        res.append(s.length).append("|").append(s);
+      }
+      return res.toString();
+    }
+    public List<String> decode(String strs) {
+      List<String> res = new ArrayList<>();
+      if (strs.length() == 0) return res;
+      int i = 0;
+      while(i < strs.length()){
+        int end = strs.indexOf('|', i);
+        int count = Integer.parseInt(strs.substring(i,end));
+        String cur = strs.substring(end, end + count);
+        res.add(cur);
+        i += cur.length();
+      }
+      return res;
+    }
 }
