@@ -10,7 +10,7 @@
 //
 // Try to use recursion and notice that it should recurse with n - 2 instead of n - 1.
 public class Solution {
-    static Map<Character, Character> map;
+    static Map<String, String> map;
     {
       map = new HashMap();
       map.put("1", "1");map.put("0", "0");map.put("8", "8");map.put("6", "9");map.put("9", "6");
@@ -37,7 +37,7 @@ public class Solution {
         }
       }
       else {
-        List<String> cur = findStrobogrammatic(n-2);
+        List<String> cur = helper(n-2);
         for (String curString : cur){
           for (String key : map.keySet()){
             res.add(key + curString + map.get(key));

@@ -24,10 +24,17 @@ public class Solution{
         map.get(encode).add(s);
       }
       List<List<String>> res = new ArrayList<>();
-      for (List<String> cur : res.values()){
+      for (List<String> cur : map.values()){
         Collections.sort(cur);
         res.add(cur);
       }
       return res;
+   }
+   private String getCode(String s){
+       if (s.length() == 1) return "1";
+       StringBuilder sb = new StringBuilder();
+       for (int i = 1; i < s.length(); i++)
+        sb.append((int)(s.charAt(i)-s.charAt(i-1)+26)%26).append(".");
+        return sb.toString();
    }
 }

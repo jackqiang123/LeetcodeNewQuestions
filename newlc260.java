@@ -17,7 +17,7 @@ public class Solution {
       filter &= (-filter);//find the low bit number -filter is the complementaion plus 1.
       int []res = new int[2];
       for (int n : nums){
-        if (n & filter == 0){
+        if ((n & filter) == 0){
           res[0] ^= n;
         }
         else res[1] ^= n;

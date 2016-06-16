@@ -18,18 +18,20 @@ public class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
       int len = nums.length;
       k = Math.min(k, len);
+      if (k == 0) return new int[0];
       int reslen = len - k + 1;
       int[]res = new int[reslen];
-      PriorityQueue<Integer> pq = new PriorityQueue(k, Collections.reverseOrder());
+      PriorityQueue<Integer> pq = new PriorityQueue(k+1, Collections.reverseOrder());
       int i = 0;
       while(i < k){
-        pq.add(nums[i]);
+        pq.add(nums[i++]);
       }
       int j = 0;
       while(j < reslen){
         res[j++] = pq.peek();
+        if (j == reslen) break;
         pq.remove(nums[i - k]);
-        pq.add(i == len - 1? 0 : nums[i++]);
+        pq.add(nums[i++]);
       }
       return res;
     }

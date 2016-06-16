@@ -29,7 +29,7 @@ public class Solution {
         res.add(Integer.parseInt(input));
         return res;
       }
-      for (int i = 1; i < len.length() - 1; i++){
+      for (int i = 1; i < len - 1; i++){
         if (input.charAt(i) == '+' || input.charAt(i) == '-' || input.charAt(i) == '*'){
           List<Integer> left = diffWaysToCompute(input.substring(0, i));
           List<Integer> right = diffWaysToCompute(input.substring(i+1));

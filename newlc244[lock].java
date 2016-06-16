@@ -17,8 +17,9 @@ public class WordDistance {
     Map<String, List<Integer>> map;
     public WordDistance(String[] words) {
       map = new HashMap();
-      for (String s : words){
-        map.put(s, map.get(s) == null ? 1 : map.get(s) + 1);
+      for (int i = 0; i < words.length; i++){
+          if (map.get(words[i]) == null) map.put(words[i], new ArrayList<Integer>());
+          map.get(words[i]).add(i);
       }
     }
 
@@ -39,6 +40,7 @@ public class WordDistance {
         else
           res = Math.min(res, Math.abs(list2.get(j++) - list1.get(list1.size() - 1)));
       }
+      return res;
     }
 }
 

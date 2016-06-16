@@ -9,11 +9,12 @@ public class Solution{
       int i = 0;
       int j = n.length() - 1;
       while(i < j){
-        if (map.get(n.charAt(i)) != n.charAt(j)) return false;
+        if (map.get(n.charAt(i)) == null || map.get(n.charAt(i)) != n.charAt(j)) return false;
         i++; j--;
       }
       if (i == j){
         return n.charAt(i) == '0' || n.charAt(i) == '1' || n.charAt(i) == '8';
       }
+      return true;
    }
 }

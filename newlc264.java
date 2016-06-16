@@ -16,22 +16,23 @@
 
 public class Solution {
     public int nthUglyNumber(int n) {
+      if(n==1) return 1;
       Queue<Integer> q2 = new LinkedList();
       Queue<Integer> q3 = new LinkedList();
       Queue<Integer> q5 = new LinkedList();
+      q2.add(num*2);
+      q3.add(num*3);
+      q5.add(num*5);
       int num = 1;
-      while(n > 1){
-        q2.add(num*2);
-        q3.add(num*3);
-        q5.add(num*5);
+      while(n >= 1){
         num = Math.min(q2.peek(), Math.min(q3.peek(), q5.peek()));
         if (q2.peek() == num){
           q2.remove();
         }
-        else if (q3.peek() == num){
+        if (q3.peek() == num){
           q3.remove();
         }
-        else {
+        if (q5.peek() == num) {
           q5.remove();
         }
         q2.add(2*num);q3.add(3*num);q5.add(5*num);

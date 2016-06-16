@@ -8,21 +8,15 @@ public class Solution{
         int res = 0;
         for (int l = lowbit; l <= highbit; l++){
           List<String> cur = findStrobogrammatic(l);
-          if (l == lowbit){
-            for (String s : cur){
-              if (String.compare(lowbit, s) <= 0) res++;
-            }
+          for (String s : cur){
+              if (s.length() == low.length() && s.compareTo(low) < 0) continue;
+              if (s.length() == high.length() && s.compareTo(high) > 0) continue;
+              res++;
           }
-          else if (l == highbit){
-            for (String s : cur){
-              if (String.compare(highbit, s) >= 0) res++;
-            }
-          }
-          else res += cur.size();
         }
         return res;
       }
-      static Map<Character, Character> map;
+      static Map<String, String> map;
       {
         map = new HashMap();
         map.put("1", "1");map.put("0", "0");map.put("8", "8");map.put("6", "9");map.put("9", "6");
@@ -49,7 +43,7 @@ public class Solution{
           }
         }
         else {
-          List<String> cur = findStrobogrammatic(n-2);
+          List<String> cur = helper(n-2);
           for (String curString : cur){
             for (String key : map.keySet()){
               res.add(key + curString + map.get(key));
@@ -58,5 +52,5 @@ public class Solution{
         }
         return res;
       }
-   }
+
 }

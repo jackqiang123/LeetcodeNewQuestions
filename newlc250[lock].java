@@ -31,7 +31,7 @@ public class Solution {
       boolean left = helper(root.left);
       boolean right = helper(root.right);
       if (left && right){
-        if ((root.left == null || root.val == root.left.val) && (root.left == null || root.val == root.right.val))
+        if ((root.left == null || root.val == root.left.val) && (root.right == null || root.val == root.right.val))
           {res++; return true;}
       }
       return false;

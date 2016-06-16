@@ -11,7 +11,7 @@ public class Solution {
           return i1.start - i2.start;
         }
       });
-      PriorityQueue<Interval> pq = new PriorityQueue<Interval>(intervals.length, new Comparator<Interval>(){
+      PriorityQueue<Interval> pq = new PriorityQueue<Interval>(intervals.length+1, new Comparator<Interval>(){
         public int compare(Interval i1, Interval i2){
           return i1.end - i2.end;
         }

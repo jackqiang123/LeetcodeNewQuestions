@@ -32,7 +32,7 @@ public class Solution {
           secondIndex = 0;
         for (int j = 0; j < clen; j++){
           if (dp[i][lowestIndex] > dp[i][j]){
-            lowestIndex = j;
+            secondIndex = lowestIndex; lowestIndex = j;
           }
           else if (lowestIndex == secondIndex || dp[i][secondIndex] > dp[i][j]){
             secondIndex = j;

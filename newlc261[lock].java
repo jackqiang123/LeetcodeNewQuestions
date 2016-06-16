@@ -16,7 +16,7 @@ public class Solution {
   public boolean validTree(int n, int[][] edges) {
     if (n <= 1) return true;
     int [] root = new int[n];
-    for (int i = 0; i < root; i++){
+    for (int i = 0; i < n; i++){
       root[i] = i;
     }
     for (int[]link : edges){
@@ -25,7 +25,7 @@ public class Solution {
       if (findRoot(root,n1) == findRoot(root,n2)){
         return false;
       }
-      root[n2] = findRoot(root,n1);
+      root[findRoot(root, n2)] = findRoot(root,n1);
     }
     int rootIndex = findRoot(root, 0);
     for (int i = 1; i < n; i++){

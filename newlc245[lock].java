@@ -13,15 +13,20 @@
 // Note:
 // You may assume word1 and word2 are both in the list.
 public class Solution {
-    public int shortestDistance(String[] words, String word1, String word2) {
+    public int shortestWordDistance(String[] words, String word1, String word2) {
       int res = words.length;
       int p1 = -res;
       int p2 = -res;
       for (int i = 0; i < words.length; i++){
-        if (words[i].equals(word1) || words[i].equals(word2)){
-          if (p1 >= p2) p2 = i;
-          else p1 = i;
-          res = Math.min(res, Math.abs(p1-p2));
+        if (words[i].equals(word1)){
+            p1 = i;
+            res = Math.min(res, Math.abs(p1-p2));
+        }
+        if (words[i].equals(word2)){
+          p2 = i;
+          if (p1 != p2){
+            res = Math.min(res, Math.abs(p1-p2));
+          }
         }
       }
       return res;
