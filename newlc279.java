@@ -6,5 +6,16 @@
 //
 public class Solution {
     public int numSquares(int n) {
+      int []dp = new int[n+1];
+      for (int i = 1; i <= n; i++){
+        if (i == 1) dp[i] = 1;
+        else {
+          dp[i] = i;
+          for (int k = 1; k * k <= n; k++){
+            dp[i] = Math.min(dp[i] , dp[i-k*k] + dp[k*k]);
+          }
+        }
+      }
+      return dp[n];
    }
 }

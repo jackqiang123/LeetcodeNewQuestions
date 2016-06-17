@@ -8,5 +8,18 @@
 //    Minimize the total number of operations.
 public class Solution {
     public void moveZeroes(int[] nums) {
+      int len = nums.length;
+      int i = 0;
+      int j = 0;
+      while(j < len){
+        if (nums[j] != 0)
+          swap(nums,i++,j++);
+        else j++;
+      }
+   }
+   private void swap(int []nums, int i, int j){
+     int t = nums[i];
+     nums[i] = nums[j];
+     nums[j] = t;
    }
 }

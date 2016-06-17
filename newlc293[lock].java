@@ -17,5 +17,15 @@
 // If there is no valid move, return an empty list [].
 public class Solution{
    public List<String> generatePossibleNextMoves(String s) {
+     List<String> res = new ArrayList<>();
+     for (int i = 0; i < s.length() - 1; i++){
+       if (s.substring(i,i+2).equals("++")){
+         char[]array = s.toCharArray();
+         array[i] = '-';
+         array[i+1] = '-';
+         res.add(new String(array));
+       }
+     }
+     return res;
    }
 }

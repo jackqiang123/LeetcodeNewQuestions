@@ -10,6 +10,29 @@
 // "00", 0 -> ["0+0", "0-0", "0*0"]
 // "3456237490", 9191 -> []
 public class Solution {
+    List<String> res;
     public List<String> addOperators(String num, int target) {
-   }
+      res = new ArrayList<String>();
+      helper(num, new StringBuilder(), 0, 0, 0, target);
+      return res;
+    }
+    private void helper(String num, StringBuilder cur, int start, int lastValue, int currentSum, int target){
+      if (start == num.length()){
+        if (currentSum + lastValue == currentSum){
+          res.add(cur.toString());
+        }
+      }
+      else{
+        for (int i = start + 1; i < num.length(); i++){
+          int curNum = Integer.parseInt(num.substring(start, i));
+          helper(num, cur, i, lastValue*curNum, last+"*"+curNum, currentSum);
+          cur.append("+").append(curNum);
+          helper(num, cur, i, curNum, "", currentSum - curNum);
+          cur.setLength();
+          cur.append("-").append(curNum);
+          helper(num, cur, i, curNum, "", currentSum + curNum);
+          cur.setLength();
+        }
+      }
+    }
 }

@@ -13,5 +13,15 @@
 // if there is a celebrity in the party. If there is no celebrity, return -1.
 public class Solution{
   public int findCelebrity(int n) {
+    Stack<Integer> stack = new Stack<>();
+    for (int i = 0; i < n; i++)
+      stack.push(i);
+    while(stack.size() > 1){
+      int c1 = stack.pop();
+      int c2 = stack.pop();
+      if (knows(c1,c2)) {stack.push(c2);}
+      else stack.push(c1);
+    }
+    return stack.peek();
    }
 }

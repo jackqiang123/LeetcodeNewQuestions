@@ -10,6 +10,37 @@
     // [1,2,3] [4,5,6,7] [8,9] // It should return [1,4,8,2,5,9,3,6,7].
 
     public class ZigzagIterator {
+        List<Integer> v1;
+        List<Integer> v2;
+        boolean visitone;
+        int index1;
+        int index2;
+        public ZigzagIterator(List<Integer> v1, List<Integer> v2) {
+          this.v1 = v1;
+          this.v2 = v2;
+          index1 = 0;
+          index2 = 0;
+          visitone = true;
+        }
 
-   }
-}
+        public int next() {
+          if (visitone && index1 < v1.size() || index2 >= v2.size()){
+            visitone = !visitone;
+            return v1.get(index1++);
+          }
+          else {
+            visitone = !visitone;
+            return v2.get(index2++);
+          }
+        }
+
+        public boolean hasNext() {
+          return index1 < v1.size() || index2 < v2.size();
+        }
+    }
+
+    /**
+     * Your ZigzagIterator object will be instantiated and called as such:
+     * ZigzagIterator i = new ZigzagIterator(v1, v2);
+     * while (i.hasNext()) v[f()] = i.next();
+     */

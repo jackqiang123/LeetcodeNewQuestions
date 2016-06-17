@@ -23,6 +23,23 @@
 //   1  -1   2  -1
 //   0  -1   3   4
 public class Solution {
-    int h;
-   }
+  // bfs will lead to a perfec solution. the first time find a newly discover node is the shortest distance.
+  // however, we use dfs here for simplity.
+    public void wallsAndGates(int[][] rooms) {
+      for (int i = 0; i < rooms.length; i++){
+        for (int j = 0; j < rooms[0].length; j++){
+          if (rooms[i][j] == 0)
+            dfs(rooms, i, j, -2);
+        }
+      }
+    }
+    private void dfs(int[][]rooms, int i, int j, int lastDis){
+      if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[0].length || rooms[i][j] == -1) return;
+      if (rooms[i][j] <= lastDis + 1) return;
+      rooms[i][j] = rooms[i][j] == 0 ? 0 : lastDis + 1;
+      dfs(rooms, i-1,j,rooms[i][j]);
+      dfs(rooms, i+1,j,rooms[i][j]);
+      dfs(rooms, i,j-1,rooms[i][j]);
+      dfs(rooms, i,j+1,rooms[i][j]);
+    }
 }

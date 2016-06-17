@@ -15,5 +15,20 @@
 // You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.
 public class Solution {
     public boolean wordPattern(String pattern, String str) {
+      Map<Character, String> map1 = new HashMap();
+      Map<String, Character> map2 = new HashMap();
+      String[]words = str.split(" ");
+      if (pattern.length() != words.length) return false;
+      for (int i = 0; i < pattern.length(); i++){
+        char c = pattern.charAt(i);
+        String s = words[i];
+        if (map1.get(c) != null && map1.get(c).equals(s)) continue;
+        else if (map1.get(c) != null && !map1.get(c).equals(s)) return false;
+        else if (map2.get(s) != null) return false;
+        else {
+          map1.put(c,s); map2.put(s,c);
+        }
+      }
+      return true;
    }
 }

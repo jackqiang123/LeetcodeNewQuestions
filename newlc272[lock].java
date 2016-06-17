@@ -6,7 +6,7 @@
 // Note:
 //
 //     Given target value is a floating point.
-//     You may assume k is always valid, that is: k â‰?total nodes.
+//     You may assume k is always valid, that is: k ï¿½ï¿½?total nodes.
 //     You are guaranteed to have only one unique set of k values in the BST that are closest to the target.
 // Follow up:
 // Assume that the BST is balanced, could you solve it in less than O(n) runtime (where n = total nodes)?
@@ -22,5 +22,41 @@
 //     You would need two stacks to track the path in finding predecessor and successor node separately.
 public class Solution{
     public List<Integer> closestKValues(TreeNode root, double target, int k) {
+      Stack<TreeNode> left = new Stack<>();
+      Stack<TreeNode> right = new Stack<>();
+      while(root!=null){
+        if (root.val < target){
+          left.push(root);
+          root = root.right;
+        }
+        else {
+          right.push(root);
+          root = root.left;
+        }
+      }
+      List<Integer> res = new ArrayList<>();
+      int count = k;
+      while(k > 0){
+        k--;
+        if (left.isEmpty() || (!right.isEmpty() && right.peek().val < left.peek().val) {
+          TreeNode cur = right.pop();
+          res.add(cur.val);
+          cur = cur.left;
+          while(cur != null){
+            right.push(cur);
+            cur = cur.right;
+          }
+        }
+        else {
+          TreeNode cur = left.pop();
+          res.add(cur.val);
+          cur = cur.right;
+          while(cur != null){
+            left.push(cur);
+            cur = cur.left;
+          }
+        }
+      }
+      return res;
    }
 }

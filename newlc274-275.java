@@ -1,7 +1,7 @@
 // Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the researcher's h-index.
 //
 // According to the definition of h-index on Wikipedia: "A scientist has index h if h of his/her N papers have at least h citations each,
-// and the other N âˆ?h papers have no more than h citations each."
+// and the other N ï¿½ï¿½?h papers have no more than h citations each."
 //
 // For example, given citations = [3, 0, 6, 1, 5], which means the researcher has 5 papers in total and each of them had
 // received 3, 0, 6, 1, 5 citations respectively. Since the researcher has 3 papers with at least 3 citations each and the remaining
@@ -16,5 +16,27 @@
 //    A faster approach is to use extra space.
 public class Solution {
     public int hIndex(int[] c) {
+      if (c.length == 0) return 0;
+      int lo = 1;
+      int hi = c.length;
+      Arrays.sort(c);
+      while(lo < hi){
+        int mid = (lo + hi)/2; // mid is the target index value
+        if (c[c.length - mid] >= mid) lo = mid + 1;
+        else hi = mid;
+      }
+      return c[c.length - lo] >= lo ? lo : lo - 1;
    }
+
+   public int fasterhIndex(int[] c) {
+     int [] h = new int[c.length + 1];//all possible values of hidnex
+     for (int x : c){
+       if (x <= c.length) h[x]++;
+       else h[c.length]++;
+     }
+     for (int i = c.length; i >= 0; i--){
+       if (h[i] >= i) return i;
+     }
+     return 0;
+  }
 }

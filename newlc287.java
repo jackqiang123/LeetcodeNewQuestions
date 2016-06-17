@@ -9,5 +9,18 @@
 // There is only one duplicate number in the array, but it could be repeated more than once.
 public class Solution {
     public int findDuplicate(int[] nums) {
+      int p1 = 0;
+      int p2 = 0;
+      while(true){
+        p1 = nums[p1];
+        p2 = nums[nums[p2]];
+        if (p1 == p2) break;
+      }
+      p2 = 0;
+      while(p1 != p2){
+        p1 = nums[p1];
+        p2 = nums[p2];
+      }
+      return p1;
    }
 }
