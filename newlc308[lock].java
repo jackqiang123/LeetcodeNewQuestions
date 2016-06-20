@@ -18,12 +18,63 @@
 // Note:
 //     The matrix is only modifiable by the update function.
 //     You may assume the number of calls to update and sumRegion function is distributed evenly.
-//     You may assume that row1 â‰?row2 and col1 â‰?col2.
+//     You may assume that row1 ï¿½ï¿½?row2 and col1 ï¿½ï¿½?col2.
 //
 // Hide Tags Segment Tree Binary Indexed Tree
 // Hide Similar Problems (M) Range Sum Query 2D - Immutable (M) Range Sum Query - Mutable
 
-class NumMatrix {
-    vector<vector<int>> tree;
-   }
+public class NumMatrix {
+    int [][]matrix;
+    BIT []bitree;
+    public NumMatrix(int[][] matrix) {
+      this.matrix = matrix;
+      for (int i = 0; i < matrx.length; i++){
+        bitree[i] = new bit(matrix[i]);
+      }
+    }
+
+    public void update(int row, int col, int val) {
+      bitree[row].update(col + 1, val - matrix[row][col]);
+      matrix[row][col] = val;
+    }
+
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+      return bitree[row2].sum(col2) - bitree[row2].sum(col1-1) - bitree[row1-1].sum(row2) + bit[row1-1].sum(col1-1);
+    }
 }
+class BIT{
+  int[]data;
+  private int lowbit(int x){
+    return x&(-x);
+  }
+  public BIT(int[]nums){
+    data = new int[nums.length+1];
+    for (int i = 1; i <= nums.length; i++){
+      update(i, nums[i-1]);
+    }
+  }
+
+  public void update(int i, int x){
+    while(i < data.length){
+      data[i] += x;
+      i += lowbit(i);
+    }
+  }
+
+  public int sum(int i){
+    i++;
+    int res = 0;
+    while(i > 0){
+      res += data[i];
+      i -= lowbit(i);
+    }
+    return res;
+  }
+}
+
+
+// Your NumMatrix object will be instantiated and called as such:
+// NumMatrix numMatrix = new NumMatrix(matrix);
+// numMatrix.sumRegion(0, 1, 2, 3);
+// numMatrix.update(1, 1, 10);
+// numMatrix.sumRegion(1, 2, 3, 4);

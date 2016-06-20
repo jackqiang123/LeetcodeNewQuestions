@@ -38,22 +38,22 @@ public class Solution{
       int count = k;
       while(k > 0){
         k--;
-        if (left.isEmpty() || (!right.isEmpty() && right.peek().val < left.peek().val) {
+        if (left.isEmpty() || (!right.isEmpty() && right.peek().val -target < target - left.peek().val)) {
           TreeNode cur = right.pop();
           res.add(cur.val);
-          cur = cur.left;
+          cur = cur.right;
           while(cur != null){
             right.push(cur);
-            cur = cur.right;
+            cur = cur.left;
           }
         }
         else {
           TreeNode cur = left.pop();
           res.add(cur.val);
-          cur = cur.right;
+          cur = cur.left;
           while(cur != null){
             left.push(cur);
-            cur = cur.left;
+            cur = cur.right;
           }
         }
       }

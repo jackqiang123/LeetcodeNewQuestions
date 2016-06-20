@@ -11,5 +11,23 @@
 
 public class Solution {
  public boolean canWin(String s) {
+   List<String> next = generatePossibleNextMoves(s);
+   if (next.size() == 0) return false;
+   for (String snext : next){
+     if (!canWin(snext)) return true;
    }
+  return false;
+ }
+ private List<String> generatePossibleNextMoves(String s) {
+   List<String> res = new ArrayList<>();
+   for (int i = 0; i < s.length() - 1; i++){
+     if (s.substring(i,i+2).equals("++")){
+       char[]array = s.toCharArray();
+       array[i] = '-';
+       array[i+1] = '-';
+       res.add(new String(array));
+     }
+   }
+   return res;
+ }
 }

@@ -25,7 +25,7 @@ public class Codec {
     public String encode(List<String> strs) {
       StringBuilder res = new StringBuilder();
       for (String s : strs){
-        res.append(s.length).append("|").append(s);
+        res.append(s.length()).append(":").append(s);
       }
       return res.toString();
     }
@@ -34,11 +34,11 @@ public class Codec {
       if (strs.length() == 0) return res;
       int i = 0;
       while(i < strs.length()){
-        int end = strs.indexOf('|', i);
+        int end = strs.indexOf(':', i);
         int count = Integer.parseInt(strs.substring(i,end));
-        String cur = strs.substring(end, end + count);
+        String cur = strs.substring(end + 1, 1 + end + count);
         res.add(cur);
-        i += cur.length();
+	    i = cur.length() + end + 1;
       }
       return res;
     }

@@ -11,10 +11,10 @@ public class Solution{
     while(root != null){
       if (Math.abs(root.val - target) < Math.abs(cur.val - target))
         cur = root;
-      if (root.val < target){
+      if (root.val < target)
         root = root.right;
       else root = root.left;
-      }
+
     }
     return cur.val;
    }

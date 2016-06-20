@@ -18,7 +18,38 @@
 // add(3)
 // findMedian() -> 2
 
-class MedianFinder {
-    PriorityQueue<Integer> leftPart = new PriorityQueue<>(10, Collections.reverseOrder()); //max heap
-   }
+public class MedianFinder {
+    PriorityQueue<Integer> leftPart = new PriorityQueue<>(10, Collections.reverseOrder());
+    PriorityQueue<Integer> rightPart = new PriorityQueue<>();
+    // Adds a number into the data structure.
+    public void addNum(int num) {
+      if (leftPart.size() == 0) leftPart.add(num);
+      else if (leftPart.size() == rightPart.size()) {
+        if (rightPart.peek() < num) {
+          rightPart.add(num);
+          num = rightPart.remove();
+        }
+        leftPart.add(num);
+      }
+      else {
+        if (leftPart.peek() >= num){
+          leftPart.add(num);
+          rightPart.add(leftPart.remove());
+        }
+        else rightPart.add(num);
+      }
+    }
+
+    // Returns the median of current data stream
+    public double findMedian() {
+      if (leftPart.size() == rightPart.size()){
+        return (leftPart.peek() + rightPart.peek())/2.0;
+      }
+      else return leftPart.peek();
+    }
 }
+
+// Your MedianFinder object will be instantiated and called as such:
+// MedianFinder mf = new MedianFinder();
+// mf.addNum(1);
+// mf.findMedian();

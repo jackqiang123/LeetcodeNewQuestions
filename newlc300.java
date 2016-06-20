@@ -10,5 +10,14 @@
 // Follow up: Could you improve it to O(n log n) time complexity?
 public class Solution {
     public int lengthOfLIS(int[] nums) {
+      int []dp = new int[nums.length];
+      int len = 0;
+      for (int x : nums){
+        int i = Arrays.binarySearch(dp, 0, len, x);
+        if (i < 0) i = -(i+1);
+        if (i == len) len++;
+        dp[i] = x;
+      }
+      return len;
    }
 }

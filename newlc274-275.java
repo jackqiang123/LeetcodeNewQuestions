@@ -19,7 +19,6 @@ public class Solution {
       if (c.length == 0) return 0;
       int lo = 1;
       int hi = c.length;
-      Arrays.sort(c);
       while(lo < hi){
         int mid = (lo + hi)/2; // mid is the target index value
         if (c[c.length - mid] >= mid) lo = mid + 1;
@@ -28,15 +27,16 @@ public class Solution {
       return c[c.length - lo] >= lo ? lo : lo - 1;
    }
 
-   public int fasterhIndex(int[] c) {
-     int [] h = new int[c.length + 1];//all possible values of hidnex
-     for (int x : c){
-       if (x <= c.length) h[x]++;
-       else h[c.length]++;
-     }
-     for (int i = c.length; i >= 0; i--){
-       if (h[i] >= i) return i;
-     }
-     return 0;
-  }
+   public int hIndex(int[] c) {
+    int [] h = new int[c.length + 1];//all possible values of hidnex
+    for (int x : c){
+      if (x <= c.length) h[x]++;
+      else h[c.length]++;
+    }
+    for (int i = c.length; i >= 0; i--){
+      if (h[i] >= i) return i;
+      else if (i-1>=0) h[i-1] += h[i];
+    }
+    return 0;
+ }
 }

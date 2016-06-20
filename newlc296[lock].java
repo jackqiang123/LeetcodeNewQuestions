@@ -1,5 +1,7 @@
 
-    // A group of two or more people wants to meet and minimize the total travel distance. You are given a 2D grid of values 0 or 1, where each 1 marks the home of someone in the group. The distance is calculated using Manhattan Distance, where distance(p1, p2) = |p2.x - p1.x| + |p2.y - p1.y|.
+    // A group of two or more people wants to meet and minimize the total travel distance.
+    // You are given a 2D grid of values 0 or 1, where each 1 marks the home of someone in the group.
+    // The distance is calculated using Manhattan Distance, where distance(p1, p2) = |p2.x - p1.x| + |p2.y - p1.y|.
     //
     // For example, given three people living at (0,0), (0,4), and (2,2):
     //
@@ -14,5 +16,23 @@
 
     public class Solution {
         public int minTotalDistance(int[][] grid) {
-   }
-}
+          List<Integer> xaxis = new ArrayList<>();
+          List<Integer> yaxis = new ArrayList<>();
+          for (int i = 0; i < grid.length; i++){
+            for (int j = 0; j < grid[0].length; j++){
+              if (grid[i][j] == 1) {
+                xaxis.add(i);
+                yaxis.add(j);
+              }
+            }
+          }
+          int res = 0;
+          int midx = xaxis.get((xaxis.size()-1)/2);
+          Collections.sort(yaxis);
+          int midy = yaxis.get((yaxis.size()-1)/2);
+          for (int i = 0; i < xaxis.size(); i++){
+            res += Math.abs(midx - xaxis.get(i)) + Math.abs(midy - yaxis.get(i));
+          }
+          return res;
+        }
+    }

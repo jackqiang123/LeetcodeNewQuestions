@@ -11,8 +11,11 @@
 // function should minimize the number of calls to knows. // Note: There will be
 // exactly one celebrity if he/she is in the party. Return the celebrity's label
 // if there is a celebrity in the party. If there is no celebrity, return -1.
-public class Solution{
-  public int findCelebrity(int n) {
+/* The knows API is defined in the parent class Relation.
+      boolean knows(int a, int b); */
+
+public class Solution extends Relation {
+    public int findCelebrity(int n) {
     Stack<Integer> stack = new Stack<>();
     for (int i = 0; i < n; i++)
       stack.push(i);
@@ -22,6 +25,11 @@ public class Solution{
       if (knows(c1,c2)) {stack.push(c2);}
       else stack.push(c1);
     }
-    return stack.peek();
-   }
+    int res = stack.peek();
+    for (int i = 0; i < n; i++){
+      if (res == i) continue;
+      if (knows(res, i) || !knows(i,res)) return -1;
+    }
+    return res;
+    }
 }

@@ -9,7 +9,7 @@
     // replace "Zigzag" with "Cyclic". For example, given the following input: //
     // [1,2,3] [4,5,6,7] [8,9] // It should return [1,4,8,2,5,9,3,6,7].
 
-    public class ZigzagIterator {
+public class ZigzagIterator {
         List<Integer> v1;
         List<Integer> v2;
         boolean visitone;

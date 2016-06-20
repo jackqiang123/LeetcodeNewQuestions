@@ -11,8 +11,8 @@ public class Solution {
         if (i == 1) dp[i] = 1;
         else {
           dp[i] = i;
-          for (int k = 1; k * k <= n; k++){
-            dp[i] = Math.min(dp[i] , dp[i-k*k] + dp[k*k]);
+          for (int k = 0; k * k <= i; k++){
+            dp[i] = Math.min(dp[i] , dp[i-k*k] + 1);
           }
         }
       }
