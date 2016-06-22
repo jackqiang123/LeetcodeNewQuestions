@@ -37,10 +37,39 @@
 //
 // Note:
 //
-// (1) According to the definition of tree on Wikipedia: “a tree is an undirected graph in which any two vertices are connected by exactly one path. In other words, any connected graph without simple cycles is a tree.�?
+// (1) According to the definition of tree on Wikipedia: “a tree is an undirected graph in which any two vertices are connected by exactly one path. In other words, any connected graph without simple cycles is a tree.��?
 //
 // (2) The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf.
 public class Solution {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
-   }
+        if (n == 1) return Collections.singletonList(0);
+      List<Set<Integer>> list = new ArrayList<>();
+      for (int i = 0; i < n; i++) list.add(new HashSet<Integer>());
+      for (int []edge : edges){
+        int s = edge[0];
+        int v = edge[1];
+        list.get(s).add(v);
+        list.get(v).add(s);
+      }
+      Queue<Integer> queue = new LinkedList<>();
+      for (int i = 0; i < n; i++){
+        if (list.get(i).size() == 1) queue.add(i);
+      }
+      while(n > 2){
+        int curQueueSize = queue.size();
+        for (int count = 0; count < curQueueSize; count++){
+          int cur = queue.remove();
+          Set<Integer> nb = list.get(cur);
+          for (int i : nb){
+            list.get(i).remove(cur);n--;
+            if (list.get(i).size() == 1){
+              queue.add(i);
+            }
+          }
+        }
+      }
+      List<Integer> res = new ArrayList<>();
+      while(!queue.isEmpty()) res.add(queue.remove());
+      return res;
+    }
 }

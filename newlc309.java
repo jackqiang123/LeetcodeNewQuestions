@@ -12,5 +12,25 @@
 // transactions = [buy, sell, cooldown, buy, sell]
 public class Solution {
     public int maxProfit(int[] p) {
-   }
+      if (p.length <= 1) return 0;
+      int cooldown [] = new int[p.length];
+      int sell [] = new int[p.length];
+      for (int i = 0; i < p.length; i++){
+        if (i == 0) {
+          cooldown[i] = 0; sell[i] = 0;
+        }
+        else if (i == 1){
+          cooldown[i] = 0;
+          sell[i] = Math.max(0, p[i] - p[i-1]);
+        }
+        else {
+          cooldown[i] = Math.max(sell[i-1], cooldown[i-1]);
+          sell[i] = p[i] - p[0];
+          for (int j = 0; j + 1 < i; j++){
+            sell[i] = Math.max(sell[i], cooldown[j] + p[i] - p[j + 1]);
+          }
+        }
+      }
+      return Math.max(cooldown[p.length-1], sell[p.length - 1]);
+    }
 }

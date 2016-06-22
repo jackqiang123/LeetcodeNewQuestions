@@ -24,53 +24,46 @@
 // Hide Similar Problems (M) Range Sum Query 2D - Immutable (M) Range Sum Query - Mutable
 
 public class NumMatrix {
-    int [][]matrix;
-    BIT []bitree;
+    int [][]nums;
+    int [][]tree; // the tree i,j is the rect sum from i - lowbit(i), j - lowbit(j) to i, j
+    int h;
+    int w;
     public NumMatrix(int[][] matrix) {
-      this.matrix = matrix;
-      for (int i = 0; i < matrx.length; i++){
-        bitree[i] = new bit(matrix[i]);
+      h = matrix.length;
+      if (h == 0){ w = 0; return;}
+      w = matrix[0].length;
+      tree = new int[h+1][w+1];
+      nums = new int[h][w];
+      for (int i = 0; i < h; i++){
+        for (int j = 0; j < w; j++)
+          update(i,j,matrix[i][j]);
       }
     }
-
+    private int lowbit(int x){
+      return x & (-x);
+    }
     public void update(int row, int col, int val) {
-      bitree[row].update(col + 1, val - matrix[row][col]);
-      matrix[row][col] = val;
+      int diff = -nums[row][col] + val;
+      nums[row][col] = val;
+      row++; col++;//one based
+      for (int i = row; i <= h; i += lowbit(i))
+        for (int j = col; j <= w; j += lowbit(j))
+            tree[i][j] += diff;
     }
-
+    private int sum(int row, int col){
+      if (row < 0 || col < 0) return 0;
+      int res = 0;
+      row++; col++;
+      for (int i = row; i > 0; i -= lowbit(i))
+        for (int j = col; j > 0; j -= lowbit(j))
+          res += tree[i][j];
+      return res;
+    }
     public int sumRegion(int row1, int col1, int row2, int col2) {
-      return bitree[row2].sum(col2) - bitree[row2].sum(col1-1) - bitree[row1-1].sum(row2) + bit[row1-1].sum(col1-1);
+      return sum(row2, col2) + sum(row1-1, col1 - 1) - sum(row1 - 1, col2) - sum(row2, col1 - 1);
     }
 }
-class BIT{
-  int[]data;
-  private int lowbit(int x){
-    return x&(-x);
-  }
-  public BIT(int[]nums){
-    data = new int[nums.length+1];
-    for (int i = 1; i <= nums.length; i++){
-      update(i, nums[i-1]);
-    }
-  }
 
-  public void update(int i, int x){
-    while(i < data.length){
-      data[i] += x;
-      i += lowbit(i);
-    }
-  }
-
-  public int sum(int i){
-    i++;
-    int res = 0;
-    while(i > 0){
-      res += data[i];
-      i -= lowbit(i);
-    }
-    return res;
-  }
-}
 
 
 // Your NumMatrix object will be instantiated and called as such:
