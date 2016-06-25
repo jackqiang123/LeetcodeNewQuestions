@@ -13,5 +13,22 @@
 
 public class Solution {
     public int[] intersect(int[] nums1, int[] nums2) {
+      if (nums1.length > nums2.length) return intersect(nums2, nums1);
+      Map<Integer, Integer> map = new HashMap<>();
+      for (int i : nums1){
+        if (map.get(i) == null) map.put(i,1);
+        else map.put(i, map.get(i) + 1);
+      }
+      List<Integer> res = new LinkedList<>();
+      for (int i : nums2){
+        if (map.get(i) != null && map.get(i) > 0){
+          res.add(i); map.put(i, map.get(i) - 1);
+        }
+      }
+      int [] list = new int[res.size()];
+      int pos = 0;
+      for (int i : res)
+        list[pos++] = i;
+      return list;
    }
 }

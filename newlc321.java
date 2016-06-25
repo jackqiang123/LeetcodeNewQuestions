@@ -22,5 +22,25 @@
 // return [9, 8, 9]
 public class Solution {
 		  public int[] maxNumber(int[] nums1, int[] nums2, int k){
-   }
+				int res[] = new int[k];
+				int p1 = 0;
+				int p2 = 0;
+				int index = 0;
+				while(index < k){
+					if (compareFun(nums1, p1, nums2, p2)){
+						res[index++] = nums2[p2++];
+					}
+					else res[index++] nums1[p1++];
+				}
+				return res;
+      }
+			private boolean compareFun(int[]nums1, int p1, int nums2[], int p2){
+				while(p1 < nums1.length && p2 < nums2.length){
+					if (nums1[p1] < nums2[p2]) return true;
+					else if (nums1[p1] > nums2[p2]) return false;
+					else {p1++;p2++;}
+				}
+				if (p1 >= nums1.length) return true;
+				return false;
+			}
 }

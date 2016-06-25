@@ -16,6 +16,27 @@
 // You can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together in edges.
 
 public class Solution {
-  // can also be done in union find algorithm
-   }
+    public int countComponents(int n, int[][] edges) {
+      int []root = new int[n];
+      for (int i = 0; i < n; i++) root[i] = i;
+      for (int[]edge:edges){
+        int s = edge[0];
+        int v = edge[0];
+        if (connect(s, v, root)) n--;
+      }
+      return n;
+    }
+    private boolean connect(int s, int v, int[]root){
+      int sRoot = findRoot(s, root);
+      int vRoot = findRoot(v, root);
+      if (sRoot == vRoot) return false;//not connect
+      root[sRoot] = vRoot;
+      return true;
+
+    }
+    private int findRoot(int s, int []root){
+      while(s != root[s])
+        s = root[s];
+      return s;
+    }
 }

@@ -16,5 +16,12 @@
 
 public class Solution {
     public int bulbSwitch(int n) {
+      if (n == 0) return 0;
+      if (n <= 3) return 1;
+      int i = 1;
+      while(i*i <= n){
+        i++;
+      }
+      return i - 1;
    }
 }

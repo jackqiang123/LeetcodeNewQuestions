@@ -21,5 +21,16 @@
 // Return 0.
 public class Solution {
     public int minPatches(int[] nums, int n) {
-   }
+      long want = 1;
+      int res = 0;
+      int i = 0;
+      if (nums.length == 0) {res++; want++;}
+      while(want <= n){
+        if (i >= nums.length || want < nums[i]) {
+          res++; want = want * 2;
+        }
+        else want += nums[i++];
+      }
+      return res;
+    }
 }

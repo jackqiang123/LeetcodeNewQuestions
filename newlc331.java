@@ -33,5 +33,17 @@
 
 public class Solution {
     public boolean isValidSerialization(String preorder) {
+      String[]tree = preoder.split(",");
+      Stack<Integer> stack = new Stack<>();
+      int []child = new int[tree.length];
+      for (int i = 0; i < tree.length; i++){
+        if (tree[i].equals("#")){
+          while(!stack.isEmpty() && child[stack.peek()] == 1) stack.pop();
+          if (stack.isEmpty()) return i == tree.length - 1;
+          else child[stack.peek()] = 1;
+        }
+        else stack.push(i);
+      }
+      return stack.isEmpty();
    }
 }

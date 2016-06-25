@@ -13,6 +13,24 @@
 // Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"]. But it is larger in lexical order.
 //
 public class Solution {
-				 List<String> res;
-   }
+    public List<String> findItinerary(String[][] tickets) {
+			Map<String, List<String>> map = new HashMap<>();
+			for (String[] ticket : tickets){
+				String dep = ticket[0];
+				String dest =  ticket[1];
+				if (map.get(dep) == null) map.put(dep, new ArrayList<String>());
+				map.get(dep).add(dest);
+				Collections.sort(map.get(dep));
+			}
+			return dfs("JFK", map);
+    }
+		private List<String> dfs(String dep, Map<String, List<String>> map){
+			List<String> res = new ArrayList<>();
+			while(map.get(dep) != null && map.get(dep).size() != 0){
+				String next = map.get(dep).remove(0);
+				res.addAll(0, dfs(next, map));
+			}
+			res.add(0, dep);
+			return res;
+		}
 }

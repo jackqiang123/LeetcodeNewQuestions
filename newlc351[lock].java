@@ -1,4 +1,4 @@
-// Given an Android 3x3 key lock screen and two integers m and n, where 1 â‰?m â‰?n â‰?9, count the total number of unlock patterns of the Android lock screen, which consist of minimum of m keys and maximum n keys.
+// Given an Android 3x3 key lock screen and two integers m and n, where 1 ï¿½ï¿½?m ï¿½ï¿½?n ï¿½ï¿½?9, count the total number of unlock patterns of the Android lock screen, which consist of minimum of m keys and maximum n keys.
 //
 // Rules for a valid pattern:
 //
@@ -35,6 +35,54 @@
 // Credits:
 // Special thanks to @elmirap for adding this problem and creating all test cases.
 public class Solution {
-    int min;
-   }
+      int[][] condPaths = new int[10][10];
+      {
+        condPaths[1][7] = 4;
+        condPaths[1][3] = 2;
+        condPaths[1][9] = 5;
+        condPaths[2][8] = 5;
+        condPaths[3][1] = 2;
+        condPaths[3][9] = 6;
+        condPaths[3][7] = 5;
+        condPaths[4][6] = 5;
+        condPaths[6][4] = 5;
+        condPaths[7][1] = 4;
+        condPaths[7][9] = 8;
+        condPaths[7][3] = 5;
+        condPaths[8][2] = 5;
+        condPaths[9][7] = 8;
+        condPaths[9][3] = 6;
+        condPaths[9][1] = 5;
+      }
+      boolean[]visit;
+      int res;
+      int temp;
+      public int numberOfPatterns(int m, int n) {
+        visit = new boolean[10];
+        visit[0] = true;
+        res = 0;
+        temp = 0;
+        dfs(1,m,n,0);
+        res+=(temp*4);
+        temp=0;
+        dfs(2,m,n,0);
+        res+=(temp*4);
+        temp=0;
+        dfs(5,m,n,0);
+        res+=(temp);
+        return res;
+      }
+      private void dfs(int start, int m, int n, int count){
+        visit[start] = true;
+        count++;
+        if (count >= m && count <= n) temp++;
+        if (count == n) {
+          visit[start] = false; return;
+        }
+        for (int i = 1; i <= 9; i++){
+          if (visit[i] || !visit[condPaths[start][i]]) continue;
+          dfs(i,m,n,count);
+        }
+        visit[start] = false;
+      }
 }

@@ -1,4 +1,4 @@
-// Given a non negative integer number num. For every numbers i in the range 0 â‰?i â‰?num
+// Given a non negative integer number num. For every numbers i in the range 0 ï¿½ï¿½?i ï¿½ï¿½?num
 // calculate the number of 1's in their binary representation and return them as an array.
 //
 // Example:
@@ -16,5 +16,12 @@
 // Or does the odd/even status of the number help you in calculating the number of 1s?
 public class Solution {
     public int[] countBits(int num) {
+      int []dp = new int[num+1];
+      for (int i = 1; i <= num; i++)
+      {
+        if (i%2==0) dp[i] = dp[i/2];
+        else dp[i] = dp[i/2]+1;
+      }
+      return dp;
    }
 }

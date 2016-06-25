@@ -11,5 +11,22 @@
 // Return "acdb"
 public class Solution {
     public String removeDuplicateLetters(String s) {
-   }
+      int []count = new int[26];
+      for (int i = 0; i < s.length(); i++)
+        count[s.charAt(i) -'a']++;
+      Stack<Character> stack = new Stack<>();
+      for (int i = 0; i < s.length(); i++){
+        char c = s.charAt(i);
+        count[c-'a']--;
+        while (stack.peek() > c && count[stack.peek()-'a']>0){
+          count[stack.pop()-'a']--;
+        }
+        stack.push(c);
+      }
+      StringBuilder res = new StringBuilder();
+      while(!stack.isEmpty()){
+        res.insert(0, stack.pop());
+      }
+      return res.toString();
+    }
 }

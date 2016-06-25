@@ -31,6 +31,13 @@
  * }
  */
 public class Solution {
+    Map<TreeNode, Integer> map = new HashMap<>();// this is the cache
     public int rob(TreeNode root) {
-   }
+      if (root == null) return 0;
+      if (map.get(root) != null) return map.get(root);
+      int toRobRoot = root.val + (root.left == null ? 0 : (rob(root.left.left) + rob(root.left.right))) + (root.right == null ? 0 : (rob(root.right.left) + rob(root.right.right)));
+      int notRobRoot = rob(root.left) + rob(root.right);
+      map.put(root, Math.max(toRobRoot, notRobRoot));
+      return Math.max(toRobRoot, notRobRoot);
+    }
 }

@@ -24,5 +24,20 @@
 // Special thanks to @dietpepsi for adding this problem and creating all test cases.
 public class Solution {
     public int maxProduct(String[] words) {
-   }
+      int mask[] = new int[words.length];
+      int max = 0;
+      for (int i = 0; i < words.length; i++){
+        for (int j = 0; j < words[i].length(); j++){
+          mask[i] |= (1<<(words[j].charAt(j)-'a'));
+        }
+      }
+      for (int i = 0; i < words.length; i++){
+        for (int j = i + 1; j < words.length; j++){
+          if (words[i].length() * words[j].length() < max) continue;
+          if (mask[i] & mask[j] == 0) continue;
+          max = Math.max(max, words[i].length() * words[j].length());
+        }
+      }
+      return max;
+    }
 }

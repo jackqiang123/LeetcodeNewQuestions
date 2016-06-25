@@ -2,7 +2,7 @@
 //
 // Formally the function should:
 // Return true if there exists i, j, k
-// such that arr[i] < arr[j] < arr[k] given 0 â‰?i < j < k â‰?n-1 else return false.
+// such that arr[i] < arr[j] < arr[k] given 0 ï¿½ï¿½?i < j < k ï¿½ï¿½?n-1 else return false.
 // Your algorithm should run in O(n) time complexity and O(1) space complexity.
 //
 // Examples:
@@ -14,5 +14,13 @@
 
 public class Solution {
     public boolean increasingTriplet(int[] nums) {
-   }
+      int lo = Integer.MAX_VALUE;
+      int mid = lo;
+      for (int i : nums){
+        if (i > mid) return true;
+        else if (i < lo) lo = i;
+        else if (i > lo && i < mid) mid = i;
+      }
+      return false;
+    }
 }

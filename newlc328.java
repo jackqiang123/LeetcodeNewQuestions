@@ -20,5 +20,33 @@
  */
 public class Solution {
     public ListNode oddEvenList(ListNode head) {
-   }
+      if (head == null || head.next == null) return head;
+      ListNode odd = new ListNode(0);
+      ListNode even = new ListNode(0);
+      ListNode oddpointer = odd;
+      ListNode evenpointer = even;
+      while(head != null){
+        oddpointer.next = head;
+        oddpointer = oddpointer.next;
+        head = head.next;
+        evenpointer.next = head;
+        evenpointer = evenpointer.next;
+        if (head != null) head = head.next;
+      }
+      oddpointer.next = null;
+      ListNode res = new ListNode(0);
+      ListNode point = res;
+      while(oddpointer!=null || evenpointer!=null){
+        point.next = oddpointer;
+        point = point.next;
+        if (oddpointer != null)
+          oddpointer = oddpointer.next;
+        point.next = evenpointer;
+        point = point.next;
+        if (evenpointer != null)
+          evenpointer = evenpointer.next;
+        point = point.next;
+      }
+      return res.next;
+    }
 }

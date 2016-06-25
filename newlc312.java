@@ -4,7 +4,7 @@
 //
 // Note:
 // (1) You may imagine nums[-1] = nums[n] = 1. They are not real therefore you can not burst them.
-// (2) 0 â‰?n â‰?500, 0 â‰?nums[i] â‰?100
+// (2) 0 ï¿½ï¿½?n ï¿½ï¿½?500, 0 ï¿½ï¿½?nums[i] ï¿½ï¿½?100
 //
 // Example:
 //
@@ -19,5 +19,22 @@
 // then we will need to let i start from end to decrease, while j from i to increase
 public class Solution {
     public int maxCoins(int[] nums) {
-   }
+      int len = nums.length;
+      int [][]dp = new int[len+2][len+2];
+      for (int i = len + 1; i >= 1; i--){
+        for (int j = i; j <= len + 1; j++){
+          int lb = i - 2>=0? nums[i-2] : 1;
+          int rb = j < len ? nums[j] : 1;
+          if (i == j) {
+            dp[i][j] = nums[i-1] * lb * rb;
+          }
+          else {
+            for (int last = i; i <= j; last++){//last is the last elements that to be break.
+              dp[i][j] = Math.max(dp[i][j], nums[last-1]*lb*rb + dp[i][last-1] + dp[last+1][j]);
+            }
+          }
+        }
+      }
+      return dp[0][len+1];
+    }
 }
