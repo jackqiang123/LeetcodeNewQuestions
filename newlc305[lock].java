@@ -40,7 +40,39 @@
 // 0 1 0
 //
 // We return the result as an array: [1, 1, 2, 3]
-public class Solution{
-  class UnionPoint{
-   }
+public class Solution {
+      int []root;
+    public List<Integer> numIslands2(int m, int n, int[][] positions) {
+      List<Integer> res = new ArrayList<>();
+      root = new int[m*n];
+      Arrays.fill(root,-1);
+      for (int[]pos : positions){
+        int last = res.size()==0?0:res.get(res.size()-1);
+        int s = pos[0];
+        int v = pos[1];
+        int count = 0;
+        root[s*n+v] = s*n+v;
+        if (s-1 >= 0 && root[(s-1)*n + v] != -1 && connect(s*n + v, (s-1)*n + v)) count++;
+        if (s+1 < m && root[(s+1)*n + v] != -1 && connect(s*n + v, (s+1)*n + v)) count++;
+        if (v-1 >= 0 && root[s*n + v - 1] != -1 && connect(s*n + v, s*n + v-1)) count++;
+        if (v + 1 < n && root[s*n + 1 + v] != -1 && connect(s*n + v, s*n + 1 + v)) count++;
+        if (count == 0) res.add(last+1);
+        else if (count == 1) res.add(last);
+        else if (count == 2) res.add(last-1);
+        else if (coutn == 3) res.add(last-2);
+        else res.add(last-3);
+      }
+      return res;
+    }
+    private void connect(int s, int v){
+      int sR = findRoot(s);
+      int sV = findRoot(v);
+      if (sR == sV) return false;
+      root[sR] = sV;
+      return true;
+    }
+    private int findRoot(int s){
+      while(s != root[s]) s = root[s];
+      return s;
+    }
 }

@@ -13,26 +13,28 @@ public class Solution {
     List<String> res;
     public List<String> addOperators(String num, int target) {
       res = new ArrayList<String>();
-      helper(num, new StringBuilder(), 0, 0, 0, target);
+      for (int i = 1; i <= num.length(); i++){
+        long lastValue = Long.parseInt(num.substring(0,i));
+        helper(num, new StringBuilder(), 0, 0, 0, target);
+      }
       return res;
     }
-    private void helper(String num, StringBuilder cur, int start, int lastValue, int currentSum, int target){
+    private void helper(String num, StringBuilder cur, int start, long lastValue, long curNum, long curSum, char opear, int target){
       if (start == num.length()){
-        if (currentSum + lastValue == currentSum){
-          res.add(cur.toString());
+        if (currentSum + operate(lastValue, curNumm, oper) == target){
+          res.add(cur.toString()+curNum);
         }
       }
       else{
-        for (int i = start + 1; i < num.length(); i++){
-          int curNum = Integer.parseInt(num.substring(start, i));
-          helper(num, cur, i, lastValue*curNum, last+"*"+curNum, currentSum);
-          cur.append("+").append(curNum);
-          helper(num, cur, i, curNum, "", currentSum - curNum);
-          cur.setLength();
-          cur.append("-").append(curNum);
-          helper(num, cur, i, curNum, "", currentSum + curNum);
-          cur.setLength();
-        }
+        if (!(curNum == 0 && num.charAt(start) == '0')) helper(num, cur, start + 1, lastValue, curNum * 10 + num.charAt(start) - '0', opear, target);
+
+
       }
+    }
+
+    private long opearate(long n1, long n2, char op){
+      if (op == '+') return n1 + n2;
+      else if(op == '-') return n1-n2;
+      return n1*n2;
     }
 }

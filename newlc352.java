@@ -18,7 +18,64 @@
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-public class SummaryRanges {
+ /**
+  * Definition for an interval.
+  * public class Interval {
+  *     int start;
+  *     int end;
+  *     Interval() { start = 0; end = 0; }
+  *     Interval(int s, int e) { start = s; end = e; }
+  * }
+  */
+ public class SummaryRanges {
 
-   }
-}
+     /** Initialize your data structure here. */
+     TreeMap<Integer, Interval> tree;
+     public SummaryRanges() {
+       tree = new TreeMap<>();
+     }
+
+     public void addNum(int val) {
+       if (tree.containsKey(val)) return;
+       Integer prev = tree.lowerKey(val);
+       Integer next = tree.higherKey(val);
+       if (prev != null){
+         Interval prevInt = tree.get(prev);
+         if (prev.end >= val) return;
+         if (prevInt.end + 1 == val) prevInt.end = val;
+       }
+       if (next != null){
+         Interval nextInt = tree.get(next);
+         if (nextInt.start - 1 == val) {
+           tree.remove(next);
+           next = val;
+           nextInt.start = val;
+           tree.put(val, nextInt);
+         }
+         else {
+           next = val;
+           tree.put(next, new Interval(val, val));
+         }
+       }
+       else {
+         next = val;
+         tree.put(next, new Interval(val, val));
+       }
+       if (prev == null) return;
+       if (tree.get(prev).end == tree.get(next).start) {
+         tree.get(prev).end = tree.get(next).end;
+         tree.remove(next);
+       }
+     }
+
+     public List<Interval> getIntervals() {
+       return new ArrayList<Interval>(tree.values());
+     }
+ }
+
+ /**
+  * Your SummaryRanges object will be instantiated and called as such:
+  * SummaryRanges obj = new SummaryRanges();
+  * obj.addNum(val);
+  * List<Interval> param_2 = obj.getIntervals();
+  */

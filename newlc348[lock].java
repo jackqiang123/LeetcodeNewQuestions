@@ -55,8 +55,15 @@
 public class TicTacToe {
 
     /** Initialize your data structure here. */
+    int [] col;
+    int [] row;
+    int diagonal;
+    int anti_diagonal;
     public TicTacToe(int n) {
-
+      col = new int[n];
+      row = new int[n];
+      diagonal = 0;
+      anti_diagonal = 0;
     }
 
     /** Player {player} makes a move at ({row}, {col}).
@@ -67,8 +74,21 @@ public class TicTacToe {
                 0: No one wins.
                 1: Player 1 wins.
                 2: Player 2 wins. */
-    public int move(int row, int col, int player) {
-
+    public int move(int r, int c, int player) {
+      if (player == 1)
+      {col[c]++; row[r]++;
+      if (r+c == col.length) anti_diagonal++;
+      if (r==c) diagonal++;
+      }
+      else
+      {col[c]--; row[r]--;
+      if (r+c == col.length) anti_diagonal--;
+      if (r==c) diagonal--;
+      }
+      int target = col.length;
+      if (col[c] == target ||  row[r] == target || anti_diagonal == target || diagonal = target) return 1;
+      if (col[c] == -target ||  row[r] == -target || anti_diagonal == -target || diagonal = -target) return 2;
+      return 0;
     }
 }
 

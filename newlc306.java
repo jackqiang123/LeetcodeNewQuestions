@@ -17,8 +17,26 @@
 //
 // Follow up:
 // How would you handle overflow for very large input integers?
-import java.math.BigInteger;
 public class Solution {
- public boolean isAdditiveNumber(String num) {
+   public boolean isAdditiveNumber(String num) {
+     if (num.length() < 2) return false;
+     int len = num.length();
+     for (int i = 0; i < len/2; i++){
+      for (int j = i + 1; j <= len/2; j++){
+        long n1 = Long.parseInt(num.substring(0,i+1));
+        if (num.charAt(i+1) == '0') continue;
+        long n2 = Long.parseInt(num.substring(i+1,j+1));
+        if (isValid(num, n1, n2, j + 1)) return true;
+      }
+     }
+     return false;
+   }
+   private boolean isValid(String num, long i, long j, int start){
+     if (start == num.length()) return true;
+     String target = String.valueOf(i + j);
+     if (target.length() + start > num.length()) return false;
+     String check = num.substring(start, start + target.length());
+     if (!target.equals(check)) return false;
+     return isValid(num, j, i + j, target.length() + start);
    }
 }
