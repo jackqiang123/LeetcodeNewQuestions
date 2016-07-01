@@ -26,6 +26,35 @@
 
 public class Solution {
     public String rearrangeString(String str, int k) {
-
+      if (k <= 1) return str;
+      int []count = new int[26];
+      char[]array1 = str.toCharArray();
+      Character[]array = new Character[array1.length];
+      for (int i = 0; i < array.length; i++)
+        array[i] = array1[i];
+      for (char c : array) count[c-'a']++;
+      Arrays.sort(array, new Comparator<Character>(){
+        public int compare(Character c1, Character c2){
+	        	if (count[c2 - 'a'] - count[c1 - 'a'] != 0)
+	        		return count[c2 - 'a'] - count[c1 - 'a'];
+	        	return c1 - c2;
+        }
+      });
+      char[] res = new char[array.length];
+      int startPos = 1;
+      int pres = 0;
+      int index = 0;
+      int []initialLocation = new int[26];
+      Arrays.fill(initialLocation,-1);
+      for (char c : array){
+        res[pres] = c;
+        if (initialLocation[c-'a'] == -1) initialLocation[c-'a'] = pres;
+        else if (Math.abs(initialLocation[c-'a'] - pres) < k) return "";
+        pres += k;
+        if (pres >= array.length) {
+          pres = startPos++;
+        }
+      }
+      return new String(res);
     }
 }

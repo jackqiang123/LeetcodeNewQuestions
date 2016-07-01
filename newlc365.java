@@ -16,7 +16,17 @@
 // Input: x = 2, y = 6, z = 5
 // Output: False
 public class Solution {
+    //ax+by == kd
     public boolean canMeasureWater(int x, int y, int z) {
-
+        if(x + y < z) return false;
+        //case x or y is zero
+        if( x == z || y == z || x + y == z ) return true;
+        return z%gcd(x,y) == 0;
+    }
+    private int gcd(int x, int y){
+      if (y > x) return gcd(y,x);
+      if (y == 0) return x;
+      if (y == x) return x;
+      return gcd(x%y,y);
     }
 }

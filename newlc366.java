@@ -31,8 +31,24 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
-    public List<List<Integer>> findLeaves(TreeNode root) {
-
-    }
-}
+ public class Solution {
+     Map<Integer, List<Integer>> map;
+     public List<List<Integer>> findLeaves(TreeNode root) {
+       map = new HashMap<>();
+       List<List<Integer>> res = new ArrayList<>();
+       if (root == null) return 0;
+       dfs(root);
+       int i = 1;
+       while(map.get(i)!=null){
+         res.add(0,map.get(i++));
+       }
+       return res;
+     }
+     private int dfs(TreeNode root){
+       if (root == null) return 0;
+       int level = 1 + Math.max(dfs(root.left), dfs(root.right));
+       if (map.get(level) == null) map.put(level, new ArrayList<Integer>());
+       map.get(level).add(root.val);
+       return level;
+     }
+ }

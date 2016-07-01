@@ -12,6 +12,14 @@
 // Returns: False
 public class Solution {
     public boolean isPerfectSquare(int num) {
-
+      if (num < 0) return false;
+      if (num <= 1) return true;
+      int lo = 2; int hi = num/2;
+      while(lo < hi){
+        int mid = (lo + hi)/2;
+        if (num/mid > mid) lo = mid+1;
+        else hi = mid;
+      }
+      return lo*lo == num || (lo+1)*(lo+1) == num;
     }
 }

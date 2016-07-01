@@ -26,8 +26,31 @@
  *     public List<NestedInteger> getList();
  * }
  */
-public class Solution {
-    public int depthSumInverse(List<NestedInteger> nestedList) {
-
-    }
-}
+ public class Solution {
+     int sum = 0;
+     public int depthSumInverse(List<NestedInteger> nestedList) {
+       int level = 0;
+       for (NestedInteger ni : nestedList)
+         level = Math.max(level, findMaxDepth(ni));
+       System.out.println(level);
+       for (NestedInteger ni : nestedList)
+         dfs(ni,level);
+       return sum;
+     }
+     private void dfs(NestedInteger ni, int level){
+       if (ni.isInteger()) sum+=level*ni.getInteger();
+       else{
+         List<NestedInteger> ls = ni.getList();
+         for (NestedInteger next : ls)
+           dfs(next, level-1);
+       }
+     }
+     private int findMaxDepth(NestedInteger number){
+       int level = 0;
+       if (number.isInteger()) return 1;
+       List<NestedInteger> ls = number.getList();
+       for (NestedInteger next : ls)
+         level = Math.max(level, 1 + findMaxDepth(next));
+       return level;
+     }
+ }

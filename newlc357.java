@@ -1,4 +1,4 @@
-// Given a non-negative integer n, count all numbers with unique digits, x, where 0 ≤ x < 10n.
+// Given a non-negative integer n, count all numbers with unique digits, x, where 0 ≤ x < 10^n.
 //
 // Example:
 // Given n = 2, return 91. (The answer should be the total numbers in the range of 0 ≤ x < 100, excluding [11,22,33,44,55,66,77,88,99])
@@ -12,6 +12,19 @@
 // f(1) = 10, ..., f(k) = 9 * 9 * 8 * ... (9 - k + 2) [The first factor is 9 because a number cannot start with 0].
 public class Solution {
     public int countNumbersWithUniqueDigits(int n) {
-
+      if (n >= 10) n = 10;
+      if (n == 0) return 1;
+      int []dp = new int[n+1];
+      dp[0] = 0;
+      dp[1] = 10;
+      for (int i = 2; i <= n; i++){
+        dp[i] = 9;
+        for (int j = 9; j >= 9 - i + 2; j--)
+          dp[i] *= j;
+      }
+      int res = 0;
+      for (int i = 1; i <= n; i++)
+        res += dp[i];
+      return res;
     }
 }

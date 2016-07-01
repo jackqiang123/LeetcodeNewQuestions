@@ -10,31 +10,42 @@
 // "00", 0 -> ["0+0", "0-0", "0*0"]
 // "3456237490", 9191 -> []
 public class Solution {
-    List<String> res;
-    public List<String> addOperators(String num, int target) {
-      res = new ArrayList<String>();
-      for (int i = 1; i <= num.length(); i++){
-        long lastValue = Long.parseInt(num.substring(0,i));
-        helper(num, new StringBuilder(), 0, 0, 0, target);
-      }
-      return res;
-    }
-    private void helper(String num, StringBuilder cur, int start, long lastValue, long curNum, long curSum, char opear, int target){
-      if (start == num.length()){
-        if (currentSum + operate(lastValue, curNumm, oper) == target){
-          res.add(cur.toString()+curNum);
-        }
-      }
-      else{
-        if (!(curNum == 0 && num.charAt(start) == '0')) helper(num, cur, start + 1, lastValue, curNum * 10 + num.charAt(start) - '0', opear, target);
+	    List<String> res;
+	    public List<String> addOperators(String num, int target) {
+	      res = new ArrayList<String>();
+	      helper(num, "", 0, 0, 0, 0, '+', target);
+	      return res;
+	    }
+	    private void helper(String num, String cur, int start, long lastValue, long curNum, long curSum, char oper, int target){
+	      if (start == num.length()){
+	        if (curSum + opearate(lastValue, curNum, oper) == target){
+	          res.add(cur);
+	        }
+	      }
+	      else{
+	        long nextLastValue = 0;
+	        if (oper == '+') nextLastValue = curNum;
+	        else if (oper == '-') nextLastValue = -curNum;
+	        else nextLastValue = lastValue*curNum;
+	        if (!(curNum == 0 && num.charAt(start) == '0' ) || start == num.length() - 1)
+	        	helper(num, cur+num.charAt(start), start + 1, lastValue, curNum * 10 + num.charAt(start) - '0', curSum, oper, target);
+	        else {
+		        helper(num, cur + "0+", start+1, 0, 0, curSum + nextLastValue, '+', target);
+		        helper(num, cur + "0-", start+1, 0, 0, curSum + nextLastValue, '-', target);
+		        helper(num, cur + "0*", start+1, 0, 0, curSum , '*', target);
+	        }
+	        if (cur.length() >= 1 && cur.charAt(cur.length()-1) != '+' && cur.charAt(cur.length()-1) != '-' &&cur.charAt(cur.length()-1) != '*')
+	        {
+		        helper(num, cur + "+", start, 0, 0, curSum + nextLastValue, '+', target);
+		        helper(num, cur + "-", start, 0, 0, curSum + nextLastValue, '-', target);
+		        helper(num, cur + "*", start, nextLastValue, 0, curSum , '*', target);
+	        }
+	      }
+	    }
 
-
-      }
-    }
-
-    private long opearate(long n1, long n2, char op){
-      if (op == '+') return n1 + n2;
-      else if(op == '-') return n1-n2;
-      return n1*n2;
-    }
-}
+	    private long opearate(long n1, long n2, char op){
+	      if (op == '+') return n1 + n2;
+	      else if(op == '-') return n1-n2;
+	      return n1*n2;
+	    }
+	}
