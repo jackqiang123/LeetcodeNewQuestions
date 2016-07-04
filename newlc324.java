@@ -12,20 +12,18 @@
 
 public class Solution {
     public void wiggleSort(int[] nums) {
-      for (int i = 1; i < nums.length; i++){
-        if (i % 2 == 0){
-          if (nums[i] < nums[i-1]) continue;
-          swap(nums,i,i-1);
-        }
-        else {
-          if (nums[i] > nums[i-1]) continue;
-          swap(nums,i,i-1);
-        }
+      int len = nums.length;
+      if (len <= 1) return;
+      Arrays.sort(nums);
+      int p1 = (0+len-1)/2;
+      int p2 = len-1;
+      int temp[] = new int[len];
+      int index = 0;
+      while(index < len){
+        temp[index++] = nums[p1--];
+        if (index < len)
+          temp[index++] = nums[p2--];
       }
-    }
-    private void swap(int []nums, int i, int j){
-      int t = nums[i];
-      nums[i] = nums[j];
-      nums[j] = t;
+      for (int i = 0; i < len; i++) nums[i] = temp[i];
     }
 }

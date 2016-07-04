@@ -18,7 +18,7 @@ public class Solution {
       for (int num : map.keySet())
       {
         freq[map.get(num)]++;
-        if (freqToNum.get(map.get(num)) == null) freqToNum.put(map.get(num), new ArrayList<Integer>);
+        if (freqToNum.get(map.get(num)) == null) freqToNum.put(map.get(num), new ArrayList<Integer>());
         freqToNum.get(map.get(num)).add(num);
       }
       List<Integer> res = new ArrayList<>();
@@ -32,5 +32,6 @@ public class Solution {
           }
         }
       }
+      return res;
     }
 }

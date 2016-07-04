@@ -77,17 +77,17 @@ public class TicTacToe {
     public int move(int r, int c, int player) {
       if (player == 1)
       {col[c]++; row[r]++;
-      if (r+c == col.length) anti_diagonal++;
+      if (r+c == col.length-1) anti_diagonal++;
       if (r==c) diagonal++;
       }
       else
       {col[c]--; row[r]--;
-      if (r+c == col.length) anti_diagonal--;
+      if (r+c == col.length-1) anti_diagonal--;
       if (r==c) diagonal--;
       }
       int target = col.length;
-      if (col[c] == target ||  row[r] == target || anti_diagonal == target || diagonal = target) return 1;
-      if (col[c] == -target ||  row[r] == -target || anti_diagonal == -target || diagonal = -target) return 2;
+      if (col[c] == target||row[r] == target||anti_diagonal == target||diagonal == target) return 1;
+      if (col[c] == -target ||  row[r] == -target || anti_diagonal == -target || diagonal == -target) return 2;
       return 0;
     }
 }

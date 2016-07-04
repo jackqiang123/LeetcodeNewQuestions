@@ -19,13 +19,15 @@
 // How would you handle overflow for very large input integers?
 public class Solution {
    public boolean isAdditiveNumber(String num) {
-     if (num.length() < 2) return false;
+     if (num.length() <= 2) return false;
      int len = num.length();
      for (int i = 0; i < len/2; i++){
-      for (int j = i + 1; j <= len/2; j++){
-        long n1 = Long.parseInt(num.substring(0,i+1));
-        if (num.charAt(i+1) == '0') continue;
-        long n2 = Long.parseInt(num.substring(i+1,j+1));
+      for (int j = i + 1; j < len - 1; j++){
+        long n1 = Long.parseLong(num.substring(0,i+1));
+        long n2 = Long.parseLong(num.substring(i+1,j+1));
+        if (n2 == 0 && j - i != 1) continue;
+        if (num.charAt(i+1) == '0' && j-i!=1) continue;
+        if (num.charAt(0) == '0' && i>=1) continue;
         if (isValid(num, n1, n2, j + 1)) return true;
       }
      }

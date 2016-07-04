@@ -16,13 +16,13 @@ public class Solution {
       List<Integer> res = new ArrayList<>();
       res.add(1);
       for (int k = 0; k < n; k++){
-        cur = res.get(k);
+        int cur = res.get(k);
         int minVal = Integer.MAX_VALUE;
         for (int j = 0; j < primes.length; j++){
-          if (minVal > res[index[j]] * primes[j]) minVal = res[index[j]] * primes[j];
+          if (minVal > res.get(index[j]) * primes[j]) minVal = res.get(index[j]) * primes[j];
         }
         for (int j = 0; j < primes.length; j++){
-          if (minVal == res[index[j]] * primes[j]) index[j]++;
+          if (minVal == res.get(index[j]) * primes[j]) index[j]++;
         }
         res.add(minVal);
       }

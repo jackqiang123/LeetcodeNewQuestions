@@ -38,15 +38,15 @@ public class Solution{
      }
      return check(image, lo, alongx) ? lo : lo - 1;
    }
-   private boolena check(char[][]image, int i, boolean alongx){
+   private boolean check(char[][]image, int i, boolean alongx){
      if (alongx){
-       for (int j = 0; j < w; j++){
+       for (int j = 0; j < image[0].length; j++){
          if (image[i][j] == '1') return true;
        }
        return false;
      }
      else {
-       for (int j = 0; j < h; j++){
+       for (int j = 0; j < image.length; j++){
          if (image[j][i] == '1') return true;
        }
        return false;

@@ -49,7 +49,7 @@ public class HitCounter {
         @param timestamp - The current timestamp (in seconds granularity). */
     public int getHits(int timestamp) {
       int lastSec = Math.max(0, timestamp - 5*60);
-      while(queue.peek() < lastSec) queue.remove();
+      while(queue.isEmpty() == false && queue.peek() <= lastSec) queue.remove();
       return queue.size();
     }
 }

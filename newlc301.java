@@ -15,7 +15,6 @@ public class Solution {
     if (isValid(s)) {
       res.add(s); return res;
     }
-    HashSet<String> set = new HashSet<>();
     HashSet<String> visit = new HashSet<>();
     Queue<String> queue = new LinkedList<>();
     int resLen = 0;
@@ -23,19 +22,19 @@ public class Solution {
     visit.add(s);
     while(queue.isEmpty()==false){
       String cur = queue.remove();
-      if (nb.size() != 0 && cur.length() <= resLen) break;
+      if (res.size() != 0 && cur.length() <= resLen) break;
       for (int i = 0; i < cur.length(); i++){
-        if (cur.charAt(i).equals('(') || cur.charAt(i).equals(')')){
+        if (cur.charAt(i) == '(' || cur.charAt(i) == ')'){
           StringBuilder sb = new StringBuilder(cur);
           sb.deleteCharAt(i);
           String nb = sb.toString();
-          if (isValid(nb)) {set.add(nb); resLen = nb.length();}
-          else queue.add(nb);
+          if (visit.contains(nb)) continue;
+          if (isValid(nb)) {
+            res.add(nb); resLen = nb.length();}
+          visit.add(nb); queue.add(nb);
         }
       }
     }
-    for (String ss : set)
-      res.add(ss);
     return res;
   }
 

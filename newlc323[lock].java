@@ -21,7 +21,7 @@ public class Solution {
       for (int i = 0; i < n; i++) root[i] = i;
       for (int[]edge:edges){
         int s = edge[0];
-        int v = edge[0];
+        int v = edge[1];
         if (connect(s, v, root)) n--;
       }
       return n;

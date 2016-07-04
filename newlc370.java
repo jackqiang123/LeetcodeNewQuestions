@@ -39,6 +39,20 @@
 // The optimal time complexity is O(k + n) and uses O(1) extra space.
 public class Solution {
     public int[] getModifiedArray(int length, int[][] updates) {
-
+      int [] res = new int[length];
+      for (int []up : updates){
+        int start = up[0];
+        int end = up[1];
+        int val = up[2];
+        res[start] += val;
+        if (end + 1 < length) res[end + 1] -= val;
+      }
+      int inc = 0;
+      int []temp = new int[length];
+      for (int i = 0; i < length; i++){
+        inc += res[i];
+        temp[i] = inc;
+      }
+      return temp;
     }
 }

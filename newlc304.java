@@ -25,13 +25,14 @@
 public class NumMatrix {
     int [][]dp;
     public NumMatrix(int[][] matrix) {
+      if (matrix.length == 0) return;
       dp = new int[matrix.length][matrix[0].length];
       for (int i = 0; i < matrix.length; i++){
         for (int j = 0; j < matrix[0].length; j++){
-          if (i == 0 && j == 0) dp[i][j] = 0;
-          else if (i == 0) dp[i][j] = dp[i][j-1] + nums[i][j];
-          else if (j == 0) dp[i][j] = dp[i-1][j] + nums[i][j];
-          else dp[i][j] = nums[i][j] + dp[i][j-1] + dp[i-1][j] - dp[i-1][j-1];
+          if (i == 0 && j == 0) dp[i][j] = matrix[0][0];
+          else if (i == 0) dp[i][j] = dp[i][j-1] + matrix[i][j];
+          else if (j == 0) dp[i][j] = dp[i-1][j] + matrix[i][j];
+          else dp[i][j] = matrix[i][j] + dp[i][j-1] + dp[i-1][j] - dp[i-1][j-1];
         }
       }
     }
@@ -41,7 +42,7 @@ public class NumMatrix {
       else if (row1 == 0){
         return dp[row2][col2] - dp[row2][col1-1];
       }
-      else if (col2 == 0){
+      else if (col1 == 0){
         return dp[row2][col2] - dp[row1-1][col2];
       }
       else return dp[row2][col2] - dp[row2][col1-1] - dp[row1-1][col2] + dp[row1-1][col1-1];

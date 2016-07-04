@@ -42,13 +42,13 @@ public class Solution {
       int cur = matrix[i][j];
       dp[i][j] = 1;
       int longestPath = 0;
-      if (i-1>=0 && cur + 1 == matrix[i-1][j])
+      if (i-1>=0 && cur < matrix[i-1][j])
         longestPath = Math.max(longestPath, dfs(i-1,j,matrix,dp));
-      if (i+1<matrix.length && cur + 1 == matrix[i+1][j])
+      if (i+1<matrix.length && cur < matrix[i+1][j])
           longestPath = Math.max(longestPath, dfs(i+1,j,matrix,dp));
-      if (j-1>=0 && cur + 1 == matrix[i][j-1])
+      if (j-1>=0 && cur < matrix[i][j-1])
           longestPath = Math.max(longestPath, dfs(i,j-1,matrix,dp));
-      if (j+1<matrix[0].length && cur + 1 == matrix[i][j+1])
+      if (j+1<matrix[0].length && cur < matrix[i][j+1])
           longestPath = Math.max(longestPath, dfs(i,j+1,matrix,dp));
       dp[i][j] += longestPath;
       return dp[i][j];

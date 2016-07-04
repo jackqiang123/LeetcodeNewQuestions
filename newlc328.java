@@ -36,17 +36,8 @@ public class Solution {
       oddpointer.next = null;
       ListNode res = new ListNode(0);
       ListNode point = res;
-      while(oddpointer!=null || evenpointer!=null){
-        point.next = oddpointer;
-        point = point.next;
-        if (oddpointer != null)
-          oddpointer = oddpointer.next;
-        point.next = evenpointer;
-        point = point.next;
-        if (evenpointer != null)
-          evenpointer = evenpointer.next;
-        point = point.next;
-      }
+      point.next = odd.next;
+      oddpointer.next = even.next;
       return res.next;
     }
 }

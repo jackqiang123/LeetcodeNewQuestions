@@ -20,21 +20,22 @@
 public class Solution {
     public int maxCoins(int[] nums) {
       int len = nums.length;
-      int [][]dp = new int[len+2][len+2];
-      for (int i = len + 1; i >= 1; i--){
-        for (int j = i; j <= len + 1; j++){
-          int lb = i - 2>=0? nums[i-2] : 1;
-          int rb = j < len ? nums[j] : 1;
+      if (len == 0) return 0;
+      int [][]dp = new int[len][len];
+      for (int i = len - 1; i >= 0; i--){
+        for (int j = i; j < len; j++){
+          int lb = i - 1 >= 0  ? nums[i - 1] : 1;
+          int rb = j + 1 < len ? nums[j + 1] : 1;
           if (i == j) {
-            dp[i][j] = nums[i-1] * lb * rb;
+            dp[i][j] = nums[i] * lb * rb;
           }
           else {
-            for (int last = i; i <= j; last++){//last is the last elements that to be break.
-              dp[i][j] = Math.max(dp[i][j], nums[last-1]*lb*rb + dp[i][last-1] + dp[last+1][j]);
+            for (int last = i; last <= j; last++){//last is the last elements that to be break.
+              dp[i][j] = Math.max(dp[i][j], nums[last]*lb*rb + (last-1>=0?dp[i][last-1]:0) + (last+1<len?dp[last+1][j]:0));
             }
           }
         }
       }
-      return dp[0][len+1];
+      return dp[0][len-1];
     }
 }

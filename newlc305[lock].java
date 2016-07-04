@@ -59,12 +59,12 @@ public class Solution {
         if (count == 0) res.add(last+1);
         else if (count == 1) res.add(last);
         else if (count == 2) res.add(last-1);
-        else if (coutn == 3) res.add(last-2);
+        else if (count == 3) res.add(last-2);
         else res.add(last-3);
       }
       return res;
     }
-    private void connect(int s, int v){
+    private boolean connect(int s, int v){
       int sR = findRoot(s);
       int sV = findRoot(v);
       if (sR == sV) return false;

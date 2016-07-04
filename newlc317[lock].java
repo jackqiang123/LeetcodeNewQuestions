@@ -20,9 +20,12 @@ public class Solution{
     if (h == 0) return 0;
     int w = grid[0].length;
     int [][]dis = new int[h][w];
+    int [][]reach = new int[h][w];
+    int N = 0;
     for (int i = 0; i < h; i++){
       for (int j = 0; j < w; j++){
         if (grid[i][j] != 1)  continue;
+        N++;
         boolean visit[][] = new boolean[h][w];
         visit[i][j] = true;
         Queue<Integer> queue = new LinkedList<>();//BFS to find all neigh distance
@@ -35,6 +38,7 @@ public class Solution{
             int cur = queue.remove();
             int x = cur/w;
             int y = cur%w;
+            reach[x][y]++;
             if (x-1>=0&&grid[x-1][y]==0&&!visit[x-1][y]){
               queue.add((x-1)*w+y);
               dis[x-1][y] += d;
@@ -46,12 +50,12 @@ public class Solution{
               visit[x+1][y] = true;
             }
             if (y-1>=0&&grid[x][y-1]==0&&!visit[x][y-1]){
-              queue.add((x*w+y-1);
+              queue.add(x*w+y-1);
               dis[x][y-1] += d;
               visit[x][y-1] = true;
             }
             if (y+1<w&&grid[x][y+1]==0&&!visit[x][y+1]){
-              queue.add((x*w+y+1);
+              queue.add(x*w+y+1);
               dis[x][y+1] += d;
               visit[x][y+1] = true;
             }
@@ -62,7 +66,8 @@ public class Solution{
     int res = Integer.MAX_VALUE;
     for (int i = 0; i < h; i++)
       for (int j = 0; j < w; j++)
-        res = Math.min(res,dis[i][j]);
-    return res;
+        if (grid[i][j] == 0 && reach[i][j] == N)
+            res = Math.min(res,dis[i][j]);
+    return res == Integer.MAX_VALUE ? -1 : res;
   }
 }
