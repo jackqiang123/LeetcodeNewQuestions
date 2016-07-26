@@ -21,6 +21,17 @@
 // Can you do it in O(n) time?
 public class Solution {
     public int wiggleMaxLength(int[] nums) {
-
-    }
+      int len = nums.length;
+      if (len <= 1) return len;
+      Boolean preInc = null;
+      int count = 1;
+      for (int i = 1; i < len; i++){
+        if (nums[i] > nums[i-1] && (!preInc || preInc == null)) {
+          preInc = true; count++;
+        }
+        else if (nums[i] < nums[i-1] && (preInc || preInc == null)){
+          preInc = false; count++;
+        }
+      }
+      return count;
 }
