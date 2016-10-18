@@ -25,13 +25,23 @@ public class Solution {
 
     /** @param head The linked list's head.
         Note that the head is guaranteed to be not null, so it contains at least one node. */
+      ListNode head = null;
     public Solution(ListNode head) {
-
+      this.head = head;
     }
 
+    //using the stream sampling algorithm
     /** Returns a random node's value. */
     public int getRandom() {
-
+      ListNode dummy = head;
+      int res = head.val;
+      int count = 1;
+      while(dummy != null){
+        if (Math.random() <= 1.0/count) res = dummy.val;
+        count++;
+        dummy = dummy.next;
+      }
+      return res;
     }
 }
 

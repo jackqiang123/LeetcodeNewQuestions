@@ -29,26 +29,47 @@
 // collection.getRandom();
 
 public class RandomizedCollection {
+        /** Initialize your data structure here. */
+        ArrayList<Integer> nums;
+        Map<Integer, Set<Integer>> index;
+        java.util.Random rand = new java.util.Random();
+        public RandomizedCollection() {
+          nums = new ArrayList<>();
+          index = new HashMap<>();
+        }
 
-    /** Initialize your data structure here. */
-    public RandomizedCollection() {
+        /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+        public boolean insert(int val) {
+          nums.add(val);
+          if (index.get(val) == null) index.put(val, new HashSet<Integer>());
+          index.get(val).add(nums.size()-1);
+          return index.get(val).size() == 1;
+        }
 
-    }
+        /** Removes a value from the set. Returns true if the set contained the specified element. */
+        public boolean remove(int val) {
+          if (index.get(val) == null || index.get(val).size() == 0) return false;
+          int i = index.get(val).iterator().next(); // to remove index
+          int tail = nums.size() - 1;
+          if (i != tail && nums.get(i) != nums.get(tail)){
+            int t = nums.get(i);
+            nums.set(i, nums.get(tail));
+            nums.set(tail, t);
+            index.get(nums.get(i)).remove(tail);
+            index.get(nums.get(i)).add(i);
+          }
+          else if (nums.get(i) == nums.get(tail)){
+              i = tail;
+          }
+          index.get(val).remove(i);
+          nums.remove(tail);
+          return true;
+        }
 
-    /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
-    public boolean insert(int val) {
-
-    }
-
-    /** Removes a value from the collection. Returns true if the collection contained the specified element. */
-    public boolean remove(int val) {
-
-    }
-
-    /** Get a random element from the collection. */
-    public int getRandom() {
-
-    }
+        /** Get a random element from the set. */
+        public int getRandom() {
+            return nums.get( rand.nextInt(nums.size()) );
+        }
 }
 
 /**

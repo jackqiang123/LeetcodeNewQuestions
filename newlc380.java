@@ -32,23 +32,41 @@
 public class RandomizedSet {
 
     /** Initialize your data structure here. */
+    ArrayList<Integer> nums;
+    Map<Integer, Integer> index;
+        java.util.Random rand = new java.util.Random();
     public RandomizedSet() {
-
+      nums = new ArrayList<>();
+      index = new HashMap<>();
     }
 
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     public boolean insert(int val) {
-
+      if (index.get(val) != null) return false;
+      nums.add(val);
+      index.put(val, nums.size() - 1);
+      return true;
     }
 
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     public boolean remove(int val) {
-
+      if (index.get(val) == null) return false;
+      int i = index.get(val);
+      int tail = nums.size() - 1;
+      if (i != tail){
+        int t = nums.get(i);
+        nums.set(i, nums.get(tail));
+        nums.set(tail, t);
+        index.put(nums.get(i),i);
+      }
+      index.remove(val);
+      nums.remove(tail);
+      return true;
     }
 
     /** Get a random element from the set. */
     public int getRandom() {
-
+        return nums.get( rand.nextInt(nums.size()) );
     }
 }
 
